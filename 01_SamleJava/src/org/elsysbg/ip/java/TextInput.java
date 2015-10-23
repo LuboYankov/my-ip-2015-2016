@@ -11,6 +11,7 @@ public class TextInput {
 		// get text from standard input
 		// scanner is used
 		final String name = in.next();
+		// instead we can use: BufferedReader, DataInputStream, InputStream, ObjectInputStream, ect.
 		System.out.println("Hello, " + name);
 		// closing the scanner
 		in.close();
