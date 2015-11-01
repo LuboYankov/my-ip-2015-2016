@@ -2,7 +2,7 @@ package org.elsysbg.ip.availability;
 
 import java.util.*;
 
-public class HandleInput {
+public class HandleInput implements HandleInputs {
 
 	List<User> USERS = new ArrayList<User>();
 	

@@ -1,6 +1,6 @@
 package org.elsysbg.ip.availability;
 
-public class User {
+public class User implements Users {
 	
 	private String name;
 	private int loginCount;
