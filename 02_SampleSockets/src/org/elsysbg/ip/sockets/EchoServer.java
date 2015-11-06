@@ -20,10 +20,7 @@ public class EchoServer {
 		setRunning();
 		final ServerSocket serverSocket = new ServerSocket(port);
 		while(isRunning()) {
-			final Socket socket;
-			synchronized (this) {
-				socket = serverSocket.accept();
-			}
+			final Socket socket = serverSocket.accept();
 			final ClientHandler client = new ClientHandler(socket, this);
 			new Thread(client).start();
 		}
@@ -48,8 +45,8 @@ public class EchoServer {
 		}
 	}
 	
-	public synchronized void onClientsStopped(ClientHandler clientHandler) {
-		
+	public synchronized void onClientStopped(ClientHandler clientHandler) {
+		clients.remove(clientHandler);
 	}
 	
 }
