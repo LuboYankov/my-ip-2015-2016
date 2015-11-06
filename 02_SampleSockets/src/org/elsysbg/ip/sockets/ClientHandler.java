@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ClientHandler implements Runnable {
 
 	private final Socket socket;
-	private static final String COMMAND_STOP_SERVER = "stopServer";
+	private static final String COMMAND_STOP_SERVER = "stop";
 	private final EchoServer echoServer;
 	
 	public ClientHandler(Socket socket, EchoServer echoServer) {
@@ -25,6 +25,7 @@ public class ClientHandler implements Runnable {
 				final String line = scanner.nextLine();
 				if(COMMAND_STOP_SERVER.equals(line)) {
 					echoServer.stopServer();
+					break;
 				}
 				out.println(line);
 			}

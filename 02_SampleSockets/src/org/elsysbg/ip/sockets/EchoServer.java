@@ -14,9 +14,9 @@ public class EchoServer {
 	}
 	
 	public void startServer() throws IOException {
-		running = true;
+		setRunning();
 		final ServerSocket serverSocket = new ServerSocket(port);
-		while(running) {
+		while(isRunning()) {
 			final Socket socket = serverSocket.accept();
 			final ClientHandler client = new ClientHandler(socket, this);
 			new Thread(client).start();
@@ -24,7 +24,18 @@ public class EchoServer {
 		serverSocket.close();
 	}
 
-	public void stopServer() {
+	private synchronized void setRunning() {
+		if(running) {
+			throw new IllegalStateException("Already running");
+		}
+		running = true;
+	}
+
+	public synchronized boolean isRunning() {
+		return running;
+	}
+	
+	public synchronized void stopServer() {
 		running = false;
 	}
 	
