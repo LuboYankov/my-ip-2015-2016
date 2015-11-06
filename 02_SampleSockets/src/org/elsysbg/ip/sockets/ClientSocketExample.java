@@ -1,6 +1,7 @@
 package org.elsysbg.ip.sockets;
 
 import java.io.PrintStream;
+import java.util.*;
 
 public class ClientSocketExample {
 
@@ -10,6 +11,13 @@ public class ClientSocketExample {
 		out.println("Host:www.example.com");
 		out.println("Connection:close");
 		out.println("");
+		
+		final Scanner scanner = new Scanner(System.in);
+		while(scanner.hasNextLine()) {
+			final String line = scanner.nextLine();
+			System.out.println(line);
+		}
+		scanner.close();
 	}
 
 }
