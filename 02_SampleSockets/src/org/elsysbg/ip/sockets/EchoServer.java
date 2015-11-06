@@ -13,10 +13,13 @@ public class EchoServer {
 	}
 	
 	public void startServer() throws IOException {
+		boolean running = true;
 		final ServerSocket serverSocket = new ServerSocket(port);
-		final Socket socket = serverSocket.accept();
-		final ClientHandler client = new ClientHandler(socket);
-		client.run();
+		while(running) {
+			final Socket socket = serverSocket.accept();
+			final ClientHandler client = new ClientHandler(socket);
+			client.run(); 
+		}
 		serverSocket.close();
 	}
 
