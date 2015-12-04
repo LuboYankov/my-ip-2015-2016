@@ -42,6 +42,7 @@ $(document).ready(function() {
 	$("#addMountain").click(function() {
 		var newMountainElement = $("<li />")
 		var newMountainName = $("#mountainNameInput").val();
+		$("#mountainNameInput").val("");
 		newMountainElement.text(newMountainName);
 		$("ul").append(newMountainElement);
 	});
