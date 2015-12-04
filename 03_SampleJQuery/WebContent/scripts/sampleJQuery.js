@@ -59,6 +59,14 @@ $(document).ready(function() {
 		alert($(this).attr("id"));
 	});
 	
+	$("#hiking").click(function() {
+		var allMountains = $("ul li");
+		for(var i = 0; i < allMountains.length; i++) {
+			var next = $(allMountains[i]);
+			alert(next.text());
+		}
+	});
+	
 	// $("#removeMountain").on("mousemove", function() {
 	//	alert("removing mountain mousemove");
 	// });
