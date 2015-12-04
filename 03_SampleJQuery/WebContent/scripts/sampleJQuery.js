@@ -61,10 +61,10 @@ $(document).ready(function() {
 	
 	$("#hiking").click(function() {
 		var allMountains = $("ul li");
-		for(var i = 0; i < allMountains.length; i++) {
-			var next = $(allMountains[i]);
+		$.each(allMountains, function(index, value) {
+			var next = $(value);
 			alert(next.text());
-		}
+		});
 	});
 	
 	// $("#removeMountain").on("mousemove", function() {
