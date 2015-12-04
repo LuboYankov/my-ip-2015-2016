@@ -50,6 +50,10 @@ $(document).ready(function() {
 		$("ul").append(newMountainElement);
 	});
 	
+	$(document).on("click", "ul li", function() {
+		alert($(this).attr("id"));
+	});
+	
 	// $("#removeMountain").on("mousemove", function() {
 	//	alert("removing mountain mousemove");
 	// });
