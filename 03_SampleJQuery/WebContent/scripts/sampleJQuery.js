@@ -35,11 +35,15 @@ $(document).ready(function() {
 	$("table").append("<tr><td>3</td><td>Georgi</td></tr>");
 	
 	// listen for event of type click on selected element
-	$("#removeMaountain").click(function() {
+	$("#removeMountain").click(function() {
 		$("ul li:first-child").remove();
 	});
 	
-	// $("#removeMaountain").on("mousemove", function() {
+	$("#addMountain").click(function() {
+		$("ul").append("<li>Vitosha</li>");
+	});
+	
+	// $("#removeMountain").on("mousemove", function() {
 	//	alert("removing mountain mousemove");
 	// });
 });
