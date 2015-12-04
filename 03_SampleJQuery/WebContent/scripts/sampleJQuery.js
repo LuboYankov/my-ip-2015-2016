@@ -14,7 +14,12 @@ $(document).ready(function() {
 	}
 	
 	function removeByDescendant() {
+		// remove list items children of ul, but not the ul
 		$("ul li").remove();
+	}
+	
+	function removeByFind(parent) {
+		parent.find("li").remove();
 	}
 	
 	// debugger; -> breakpoint
@@ -24,6 +29,7 @@ $(document).ready(function() {
 	// removeById();
 	// removeByType();
 	// removeByDescendant();
+	// removeByFind($("ol"));
 	
 	// add new row to the table
 	$("table").append("<tr><td>3</td><td>Georgi</td></tr>");
