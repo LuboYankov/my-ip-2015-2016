@@ -40,7 +40,8 @@ $(document).ready(function() {
 	});
 	
 	$("#addMountain").click(function() {
-		var newMountainElement = $("<li />") 
+		var newMountainElement = $("<li />")
+		newMountainElement.text("Vitosha");
 		$("ul").append(newMountainElement);
 	});
 	
