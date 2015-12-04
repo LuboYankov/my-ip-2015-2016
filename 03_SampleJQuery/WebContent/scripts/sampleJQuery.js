@@ -34,5 +34,12 @@ $(document).ready(function() {
 	// add new row to the table
 	$("table").append("<tr><td>3</td><td>Georgi</td></tr>");
 	
+	// listen for event of type click on selected element
+	$("#removeMaountain").click(function() {
+		alert("removing mountain");
+	});
 	
+	// $("#removeMaountain").on("mousemove", function() {
+	//	alert("removing mountain mousemove");
+	// });
 });
