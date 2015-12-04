@@ -13,12 +13,17 @@ $(document).ready(function() {
 		$("ol").remove();
 	}
 	
+	function removeByDescendant() {
+		$("ul li").remove();
+	}
+	
 	// debugger; -> breakpoint
 	
 	// call function:
-	removeByClassName();
-	removeById();
-	removeByType();
+	// removeByClassName();
+	// removeById();
+	// removeByType();
+	// removeByDescendant();
 	
 	// add new row to the table
 	$("table").append("<tr><td>3</td><td>Georgi</td></tr>");
