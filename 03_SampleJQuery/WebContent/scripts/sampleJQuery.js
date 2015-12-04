@@ -50,6 +50,11 @@ $(document).ready(function() {
 		$("ul").append(newMountainElement);
 	});
 	
+	// this works only for already created elements
+	/* $("ul li").click(function() {
+		alert("asdf");
+	}); */
+	
 	$(document).on("click", "ul li", function() {
 		alert($(this).attr("id"));
 	});
