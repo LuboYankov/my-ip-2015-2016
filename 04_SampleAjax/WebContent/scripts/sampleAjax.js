@@ -5,6 +5,10 @@ $(document).ready(function() {
 	
 	$.ajax(ENDPOINT, {
 		method: "GET",
+		// to add parameters to the request
+		data: {
+			title: "task1"
+		},
 		dataType: "json",
 	}).then(function(response) {
 		console.log(response);
