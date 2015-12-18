@@ -3,6 +3,12 @@ $(document).ready(function() {
 	
 	var ENDPOINT = "http://localhost:3000/tasks";
 	
+	// global error handler
+	$(document).ajaxError(function() {
+		console.log("error:", arguments);
+		alert("Error!")
+	});
+	
 	$.ajax(ENDPOINT, {
 		method: "GET",
 		// to add parameters to the request
@@ -12,8 +18,5 @@ $(document).ready(function() {
 		dataType: "json",
 	}).then(function(response) {
 		console.log(response);
-	}, function() {
-		console.log("error:", arguments);
-		alert("Error!")
 	});
 });
