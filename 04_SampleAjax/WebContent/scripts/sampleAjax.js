@@ -35,13 +35,15 @@ $(document).ready(function() {
 			title: "hello",
 			description: "some text"
 	};
-	$.ajax(ENDPOINT, {
+	var newTaskId;
+	var createPromise = $.ajax(ENDPOINT, {
 		method: "POST",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify(task),
 		dataType: "json",
 	}).then(function(response) {
 		console.log(response);
+		return response;
 	});
 	
 	$.ajax(taskEndpoint(2), {
@@ -55,4 +57,27 @@ $(document).ready(function() {
 	}).then(function(response) {
 		console.log(response);
 	});
+	
+	createPromise.then(function(response) {
+		$.ajax(taskEndpoint(response.id), {
+			method: "DELETE"
+		});
+	});
+	
+//	$("#submit-button").click(function() {
+//		var task = {
+//				title: $("#title").val(),
+//				description: $("#description").val()
+//		};
+//		$("#title").val("");
+//		$("#description").val("");
+//		$.ajax(ENDPOINT, {
+//			method: "POST",
+//			contentType: "application/json; charset=utf-8",
+//			data: JSON.stringify(task),
+//			dataType: "json",
+//		}).then(function(response) {
+//			console.log(response);
+//		});
+//	});
 });
