@@ -43,4 +43,16 @@ $(document).ready(function() {
 	}).then(function(response) {
 		console.log(response);
 	});
+	
+	$.ajax(taskEndpoint(2), {
+		method: "PUT",
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify({
+			title: "updated",
+			description: "updated description"
+		}),
+		dataType: "json",
+	}).then(function(response) {
+		console.log(response);
+	});
 });
