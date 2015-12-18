@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	"use strict"
 	
+	var ENDPOINT = "http://localhost:3000/tasks";
+	
 	function taskEndpoint(taskId) {
 		return ENDPOINT+"/" + taskId;
 	}
@@ -27,26 +29,32 @@ $(document).ready(function() {
 		});
 	}
 	
-	var ENDPOINT = "http://localhost:3000/tasks";
+	function showTaskView(task) {
+		$("#readPanel .task-title").text(task.title);
+		$("#readPanel .task-description").text(task.description);
+		showPanel("readPanel");
+	}
 	
-	listTasks().then(function(response) {
-		function addTaskToList(task) {
-			var newItem = $("<li />");
-			newItem.text(task.title);
-			newItem.addClass("list-group-item");
-			newItem.attr("data-task-id", task.id);
-			$("#tasksList").append(newItem);
-		}
-		$("#taskList").html("");
-		_.forEach(response, addTaskToList);
-	});
-	
-	$(document).on("click", "#tasksList [data-task-id]", function() {
-		var taskId = $(this).attr("data-task-id");
-		readTask(taskId).then(function(response) {
-			$("#readPanel .task-title").text(response.title);
-			$("#readPanel .task-description").text(response.description);
-			showPanel("readPanel");
+	function reloadTasks() {
+		listTasks().then(function(response) {
+			function addTaskToList(task) {
+				var newItem = $("<li />");
+				newItem.text(task.title);
+				newItem.addClass("list-group-item");
+				newItem.attr("data-task-id", task.id);
+				$("#tasksList").append(newItem);
+			}
+			$("#taskList").html("");
+			_.forEach(response, addTaskToList);
 		});
-	});
+	} 
+	function attachHandlers() {
+		$(document).on("click", "#tasksList [data-task-id]", function() {
+			var taskId = $(this).attr("data-task-id");
+			readTask(taskId).then(showTaskView);
+		});
+	}
+	
+	attachHandlers();
+	reloadTasks();
 });
