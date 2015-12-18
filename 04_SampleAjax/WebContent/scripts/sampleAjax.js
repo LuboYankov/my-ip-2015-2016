@@ -12,5 +12,8 @@ $(document).ready(function() {
 		dataType: "json",
 	}).then(function(response) {
 		console.log(response);
+	}, function() {
+		console.log("error:", arguments);
+		alert("Error!")
 	});
 });
