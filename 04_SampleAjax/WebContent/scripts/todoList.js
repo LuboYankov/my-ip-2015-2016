@@ -13,12 +13,23 @@ $(document).ready(function() {
 		$("#"+panelName).show();
 	}
 	
+	function listTasks() {
+		return $.ajax(ENDPOINT, {
+			method: "GET",
+			dataType: "json"
+		});
+	}
+	
+	function readTask(taskId) {
+		return $.ajax(taskEndpoint(taskId), {
+			method: "GET",
+			dataType: "json",
+		});
+	}
+	
 	var ENDPOINT = "http://localhost:3000/tasks";
 	
-	$.ajax(ENDPOINT, {
-		method: "GET",
-		dataType: "json"
-	}).then(function(response) {
+	listTasks().then(function(response) {
 		function addTaskToList(task) {
 			var newItem = $("<li />");
 			newItem.text(task.title);
@@ -32,11 +43,7 @@ $(document).ready(function() {
 	
 	$(document).on("click", "#tasksList [data-task-id]", function() {
 		var taskId = $(this).attr("data-task-id");
-		
-		$.ajax(taskEndpoint(taskId), {
-			method: "GET",
-			dataType: "json",
-		}).then(function(response) {
+		readTask(taskId).then(function(response) {
 			$("#readPanel .task-title").text(response.title);
 			$("#readPanel .task-description").text(response.description);
 			showPanel("readPanel");
