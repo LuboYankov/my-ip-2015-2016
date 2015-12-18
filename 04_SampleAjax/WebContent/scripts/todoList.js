@@ -1,6 +1,10 @@
 $(document).ready(function() {
 	"use strict"
 	
+	function taskEndpoint(taskId) {
+		return ENDPOINT+"/" + taskId;
+	}
+	
 	function showPanel(panelName) {
 		var ALL_PANELS = ["emptyPanel", "readPanel", "updatePanel", "createPanel"];
 		_.forEach(ALL_PANELS, function(nextValue) {
@@ -27,7 +31,15 @@ $(document).ready(function() {
 	});
 	
 	$(document).on("click", "#tasksList [data-task-id]", function() {
-		// var taskId = $(this).attr("data-task-id");
-		showPanel("readPanel");
+		var taskId = $(this).attr("data-task-id");
+		
+		$.ajax(taskEndpoint(taskId), {
+			method: "GET",
+			dataType: "json",
+		}).then(function(response) {
+			$("#readPanel .task-title").text(response.title);
+			$("#readPanel .task-description").text(response.description);
+			showPanel("readPanel");
+		});
 	});
 });
