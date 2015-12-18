@@ -19,4 +19,11 @@ $(document).ready(function() {
 	}).then(function(response) {
 		console.log(response);
 	});
+	
+	$.ajax(ENDPOINT+"/"+2, {
+		method: "GET",
+		dataType: "json",
+	}).then(function(response) {
+		console.log(response);
+	});
 });
