@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	"use strict"
+	"use strict";
 	
 	var ENDPOINT = "http://localhost:3000/tasks";
 	
@@ -29,6 +29,12 @@ $(document).ready(function() {
 		});
 	}
 	
+	function deleteTask(taskId) {
+		$.ajax(taskEndpoint(taskId), {
+			method: "DELETE"
+		});
+	}
+	
 	function showTaskView(task) {
 		$("#readPanel .task-title").text(task.title);
 		$("#readPanel .task-description").text(task.description);
@@ -44,18 +50,25 @@ $(document).ready(function() {
 				newItem.attr("data-task-id", task.id);
 				$("#tasksList").append(newItem);
 			}
-			$("#taskList").html("");
+			$("#tasksList").html("");
 			_.forEach(response, addTaskToList);
 		});
 	} 
 	function attachHandlers() {
+		var clickedTaskId = null;
 		$(document).on("click", "#tasksList [data-task-id]", function() {
-			var taskId = $(this).attr("data-task-id");
-			readTask(taskId).then(showTaskView);
+			clickedTaskId = $(this).attr("data-task-id");
+			readTask(clickedTaskId).then(showTaskView);
 		});
+		
 		$(".task-action-cancel").click(function() {
 			showPanel("emptyPanel");
 		});
+		
+		$(".task-action-remove").click(function() {
+			deleteTask(clickedTaskId);
+			window.location.reload();
+		});	
 	}
 	
 	attachHandlers();

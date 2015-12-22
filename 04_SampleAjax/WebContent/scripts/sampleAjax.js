@@ -10,7 +10,7 @@ $(document).ready(function() {
 	// global error handler
 	$(document).ajaxError(function() {
 		console.log("error:", arguments);
-		alert("Error!")
+		alert("Error!");
 	});
 	
 	$.ajax(ENDPOINT, {
@@ -35,7 +35,6 @@ $(document).ready(function() {
 			title: "hello",
 			description: "some text"
 	};
-	var newTaskId;
 	var createPromise = $.ajax(ENDPOINT, {
 		method: "POST",
 		contentType: "application/json; charset=utf-8",
