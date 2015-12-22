@@ -22,6 +22,23 @@ $(document).ready(function() {
 		});
 	}
 	
+	function fillEditFields(response) {
+		$("#updatePanel input").val(response.title);
+		$("#updatePanel textArea").val(response.description);
+	}
+	
+	function saveEditedTask(taskId) {
+		$.ajax(taskEndpoint(taskId), {
+			method: "PUT",
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify({
+				title: $("#updatePanel input").val() ,
+				description: $("#updatePanel textArea").val()
+			}),
+			dataType: "json",
+		});
+	}
+	
 	function readTask(taskId) {
 		return $.ajax(taskEndpoint(taskId), {
 			method: "GET",
@@ -53,7 +70,8 @@ $(document).ready(function() {
 			$("#tasksList").html("");
 			_.forEach(response, addTaskToList);
 		});
-	} 
+	}
+	
 	function attachHandlers() {
 		var clickedTaskId = null;
 		$(document).on("click", "#tasksList [data-task-id]", function() {
@@ -68,7 +86,17 @@ $(document).ready(function() {
 		$(".task-action-remove").click(function() {
 			deleteTask(clickedTaskId);
 			window.location.reload();
-		});	
+		});
+		
+		$("#readPanel .task-action-ok").click(function() {
+			showPanel("updatePanel");
+			readTask(clickedTaskId).then(fillEditFields);
+		});
+		
+		$("#updatePanel .task-action-ok").click(function() {
+			saveEditedTask(clickedTaskId);
+			window.location.reload();
+		});
 	}
 	
 	attachHandlers();
