@@ -46,6 +46,21 @@ $(document).ready(function() {
 		});
 	}
 	
+	function createTask() {
+		var task = {
+			title: $("#createPanel input").val(),
+			description: $("#createPanel textarea").val()
+		}
+		$.ajax(ENDPOINT, {
+			method: "POST",
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify(task),
+			dataType: "json",
+		}).then(function(response) {
+			window.location.reload();
+		});
+	}
+	
 	function deleteTask(taskId) {
 		$.ajax(taskEndpoint(taskId), {
 			method: "DELETE"
@@ -96,6 +111,14 @@ $(document).ready(function() {
 		$("#updatePanel .task-action-ok").click(function() {
 			saveEditedTask(clickedTaskId);
 			window.location.reload();
+		});
+		
+		$("#addTaskButton").click(function() {
+			showPanel("createPanel");
+		});
+		
+		$("#createPanel .task-action-ok").click(function() {
+			createTask();
 		});
 	}
 	
