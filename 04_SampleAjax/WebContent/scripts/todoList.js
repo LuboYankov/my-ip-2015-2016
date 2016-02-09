@@ -114,6 +114,8 @@ $(document).ready(function() {
 		});
 		
 		$("#addTaskButton").click(function() {
+			$("#createPanel [name='title']").val("");
+			$("#createPanel [name='description']").val("");
 			showPanel("createPanel");
 		});
 		
