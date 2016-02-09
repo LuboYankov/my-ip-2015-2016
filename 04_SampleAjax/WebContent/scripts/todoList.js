@@ -13,6 +13,7 @@ $(document).ready(function() {
 			$("#"+nextValue).hide();
 		});
 		$("#"+panelName).show();
+		$("li.active").removeClass("active");
 	}
 	
 	function listTasks() {
@@ -71,6 +72,7 @@ $(document).ready(function() {
 		$("#readPanel .task-title").text(task.title);
 		$("#readPanel .task-description").text(task.description);
 		showPanel("readPanel");
+		$("#tasksList li[data-task-id='"+task.id+"']").addClass("active");
 	}
 	
 	function reloadTasks() {
