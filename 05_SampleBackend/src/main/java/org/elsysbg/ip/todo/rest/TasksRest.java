@@ -48,7 +48,7 @@ public class TasksRest {
 	
 	@DELETE
 	@Path("/{taskId}")
-	public void deleteTask(@PathParam("taskId")long taskId) {
+	public void deleteTask(@PathParam("taskId") long taskId) {
 		tasksService.deleteTask(taskId);
 	}
 	

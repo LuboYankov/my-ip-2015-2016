@@ -26,6 +26,7 @@ $(document).ready(function() {
 	function fillEditFields(response) {
 		$("#updatePanel input").val(response.title);
 		$("#updatePanel textArea").val(response.description);
+		$("#updatePanel .task-author").text(response.author);
 	}
 	
 	function saveEditedTask(taskId) {
@@ -49,8 +50,9 @@ $(document).ready(function() {
 	
 	function createTask() {
 		var task = {
-			title: $("#createPanel input").val(),
-			description: $("#createPanel textarea").val()
+			title: $("#createPanel input[name='title']").val(),
+			description: $("#createPanel textarea").val(),
+			author: $("#createPanel input[name='author']").val()
 		}
 		$.ajax(ENDPOINT, {
 			method: "POST",
@@ -71,6 +73,7 @@ $(document).ready(function() {
 	function showTaskView(task) {
 		$("#readPanel .task-title").text(task.title);
 		$("#readPanel .task-description").text(task.description);
+		$("#readPanel .task-author").text(task.author);
 		showPanel("readPanel");
 		$("#tasksList li[data-task-id='"+task.id+"']").addClass("active");
 	}
@@ -118,6 +121,7 @@ $(document).ready(function() {
 		$("#addTaskButton").click(function() {
 			$("#createPanel [name='title']").val("");
 			$("#createPanel [name='description']").val("");
+			$("#createPanel [name='author']").val("");
 			showPanel("createPanel");
 		});
 		
