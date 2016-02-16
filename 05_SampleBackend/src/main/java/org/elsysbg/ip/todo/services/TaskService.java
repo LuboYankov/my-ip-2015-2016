@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import org.elsysbg.ip.todo.entities.Task;
 
+@Singleton
 public class TaskService {
 	private long lastId = 0;
 	private List<Task> tasks = Collections.synchronizedList(new LinkedList<Task>());

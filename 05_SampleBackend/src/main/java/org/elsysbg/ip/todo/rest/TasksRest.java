@@ -3,6 +3,7 @@ package org.elsysbg.ip.todo.rest;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -10,9 +11,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.elsysbg.ip.todo.entities.Task;
+import org.elsysbg.ip.todo.services.TaskService;
 
 @Path("/tasks")
 public class TasksRest {
+	private final TaskService tasksService;
+	
+	@Inject
+	public TasksRest(TaskService tasksService) {
+		this.tasksService = tasksService;
+	}
+	
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
