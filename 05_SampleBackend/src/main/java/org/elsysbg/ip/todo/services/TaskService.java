@@ -1,51 +1,91 @@
 package org.elsysbg.ip.todo.services;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import org.elsysbg.ip.todo.entities.Task;
 
 @Singleton
 public class TaskService {
-	private long lastId = 0;
-	private List<Task> tasks = Collections.synchronizedList(new LinkedList<Task>());
+	private final EntityManagerFactory emf;
 	
-	private synchronized long getAndIncrementNextId() {
-		return ++lastId;
+	public TaskService() {
+		emf = Persistence.createEntityManagerFactory("todolist-jpa");
 	}
 	
 	public Task createTask(Task task) {
-		task.setId(getAndIncrementNextId());
-		tasks.add(task);
-		return task;
+		final EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(task);
+			em.getTransaction().commit();
+			return task;
+		} finally {
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
 	}
 	
 	public List<Task> getTasks() {
-		return new ArrayList<Task>(tasks);
+		final EntityManager em = emf.createEntityManager();
+		try {
+			final TypedQuery<Task> query = em.createNamedQuery(Task.QUERY_ALL, Task.class);
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
 	}
 	
 	public Task getTask(long taskId) {
-		for(Task task : tasks) {
-			if(taskId == task.getId()) {
-				return task;
+		final EntityManager em = emf.createEntityManager();
+		try {
+			final Task result = em.find(Task.class, taskId);
+			if(result == null) {
+				throw new IllegalArgumentException("no task with id: " + taskId);
 			}
+			return result;
+		} finally {
+			em.close();
 		}
-		throw new IllegalArgumentException("No task with this id");
 	}
 	
 	public Task updateTask(Task task) {
-		final Task oldTask = getTask(task.getId());
-		tasks.remove(oldTask);
-		tasks.add(task);
-		return task;
+		final EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			final Task result = em.merge(task);
+			em.getTransaction().commit();
+			return result;
+		} finally {
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
 	}
 	
 	public void deleteTask(long taskId) {
-		final Task oldTask = getTask(taskId);
-		tasks.remove(oldTask);
+		final EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			final Task fromDb = em.find(Task.class, taskId);
+			if(fromDb == null) {
+				throw new IllegalArgumentException("no task with id: " + taskId);
+			}
+			em.remove(fromDb);
+			em.getTransaction().commit();
+		} finally {
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
 	}
 }
