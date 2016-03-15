@@ -13,16 +13,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.elsysbg.ip.todo.entities.Member;
 import org.elsysbg.ip.todo.entities.Task;
+import org.elsysbg.ip.todo.services.MemberService;
 import org.elsysbg.ip.todo.services.TaskService;
 
 @Path("/tasks")
 public class TasksRest {
 	private final TaskService tasksService;
+	private final MemberService membersService;
 	
 	@Inject
-	public TasksRest(TaskService tasksService) {
+	public TasksRest(TaskService tasksService, MemberService membersService) {
 		this.tasksService = tasksService;
+		this.membersService = membersService;
 	}
 	
 	
@@ -43,6 +47,8 @@ public class TasksRest {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Task createTask(Task task) {
+		final List<Member> members = membersService.getMembers();
+		task.setAuthor(members.iterator().next());
 		return tasksService.createTask(task);
 	}
 	
