@@ -15,18 +15,18 @@ import javax.ws.rs.core.MediaType;
 
 import org.elsysbg.ip.todo.entities.Member;
 import org.elsysbg.ip.todo.entities.Task;
-import org.elsysbg.ip.todo.services.MemberService;
+import org.elsysbg.ip.todo.services.AuthenticationService;
 import org.elsysbg.ip.todo.services.TaskService;
 
 @Path("/tasks")
 public class TasksRest {
 	private final TaskService tasksService;
-	private final MemberService membersService;
+	private final AuthenticationService authenticationService;
 	
 	@Inject
-	public TasksRest(TaskService tasksService, MemberService membersService) {
+	public TasksRest(TaskService tasksService, AuthenticationService authenticationService) {
 		this.tasksService = tasksService;
-		this.membersService = membersService;
+		this.authenticationService = authenticationService;
 	}
 	
 	
@@ -47,8 +47,8 @@ public class TasksRest {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Task createTask(Task task) {
-		final List<Member> members = membersService.getMembers();
-		task.setAuthor(members.iterator().next());
+		final Member member = authenticationService.getCurrentlyLoggedInMember();
+		task.setAuthor(member);
 		return tasksService.createTask(task);
 	}
 	

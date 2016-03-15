@@ -1,6 +1,8 @@
 package org.elsysbg.ip.todo;
 
+import org.apache.derby.iapi.jdbc.AuthenticationService;
 import org.elsysbg.ip.todo.services.EntityManagerService;
+import org.elsysbg.ip.todo.services.MemberService;
 import org.elsysbg.ip.todo.services.TaskService;
 
 import com.google.inject.Guice;
@@ -20,6 +22,8 @@ public class TodoListServletContextListener extends GuiceServletContextListener 
 				protected void configureServlets() {
 					bind(TaskService.class);
 					bind(EntityManagerService.class);
+					bind(MemberService.class);
+					bind(AuthenticationService.class);
 				}
 			});
 		}
