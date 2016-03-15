@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,7 +30,8 @@ public class Task {
 	private String description;
 	
 	@Column(nullable = false)
-	private String author;
+	@ManyToOne
+	private Member author;
 	
 	public long getId() {
 		return id;
@@ -55,11 +57,11 @@ public class Task {
 		this.description = description;
 	}
 	
-	public String getAuthor() {
+	public Member getAuthor() {
 		return author;
 	}
 	
-	public void setAuthor(String author) {
+	public void setAuthor(Member author) {
 		this.author = author;
 	}
 }

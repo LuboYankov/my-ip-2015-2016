@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +17,7 @@ public class Member {
 	@Column(nullable = false, unique = true)
 	private String username;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String password;
 	
 	public long getId() {
