@@ -14,14 +14,17 @@ import javax.ws.rs.core.MediaType;
 import org.elsysbg.ip.todo.entities.Member;
 import org.elsysbg.ip.todo.entities.Task;
 import org.elsysbg.ip.todo.services.MemberService;
+import org.elsysbg.ip.todo.services.TaskService;
 
 @Path("/members")
 public class MembersRest {
 	private final MemberService membersService;
+	private final TaskService tasksService;
 	
 	@Inject
-	public MembersRest(MemberService membersService) {
+	public MembersRest(MemberService membersService, TaskService tasksService) {
 		this.membersService = membersService;
+		this.tasksService = tasksService;
 	}
 	
 	@POST

@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.elsysbg.ip.todo.entities.Member;
 import org.elsysbg.ip.todo.entities.Task;
 
 @Singleton
@@ -85,6 +86,17 @@ public class TaskService {
 			if(em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
+			em.close();
+		}
+	}
+
+	public List<Task> getTasksByAuthor(Member author) {
+		final EntityManager em = entityManagerService.createEntityManager();
+		try {
+			final TypedQuery<Task> query = em.createNamedQuery(Task.QUERY_BY_AUTHOR, Task.class);
+			query.setParameter("author", author);
+			return query.getResultList();
+		} finally {
 			em.close();
 		}
 	}
