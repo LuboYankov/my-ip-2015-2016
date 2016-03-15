@@ -1,9 +1,13 @@
 package org.elsysbg.ip.todo.services;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
+import org.elsysbg.ip.todo.entities.Member;
 import org.elsysbg.ip.todo.entities.Member;
 
 @Singleton
@@ -26,6 +30,16 @@ public class MemberService {
 			if(em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
+			em.close();
+		}
+	}
+	
+	public List<Member> getMembers() {
+		final EntityManager em = entityManagerService.createEntityManager();
+		try {
+			final TypedQuery<Member> query = em.createNamedQuery(Member.QUERY_ALL, Member.class);
+			return query.getResultList();
+		} finally {
 			em.close();
 		}
 	}
