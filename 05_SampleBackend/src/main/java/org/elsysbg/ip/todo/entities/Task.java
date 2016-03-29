@@ -13,11 +13,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-	@NamedQuery(name=Task.QUERY_ALL, query = "SELECT t FROM Task t"),
-	@NamedQuery(name=Task.QUERY_BY_AUTHOR, query = "SELECT t FROM Task t WHERE t.author=:author")
+	@NamedQuery(name=Task.QUERY_ALL,
+		query = "SELECT t from Task t"),
+	@NamedQuery(name=Task.QUERY_BY_AUTHOR,
+		query = "SELECT t from Task t WHERE t.author=:author")
 })
 public class Task {
-	
 	public static final String QUERY_ALL = "tasksAll";
 	public static final String QUERY_BY_AUTHOR = "tasksByAuthor";
 
@@ -30,40 +31,41 @@ public class Task {
 	
 	@Column(nullable = false)
 	private String description;
-	
+
 	@Column(nullable = false)
 	@ManyToOne
 	private Member author;
-	
+
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public Member getAuthor() {
 		return author;
 	}
-	
+
 	public void setAuthor(Member author) {
 		this.author = author;
 	}
+
 }

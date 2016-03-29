@@ -1,9 +1,9 @@
 package org.elsysbg.ip.todo;
 
-import org.apache.derby.iapi.jdbc.AuthenticationService;
+import org.elsysbg.ip.todo.services.AuthenticationService;
 import org.elsysbg.ip.todo.services.EntityManagerService;
-import org.elsysbg.ip.todo.services.MemberService;
-import org.elsysbg.ip.todo.services.TaskService;
+import org.elsysbg.ip.todo.services.MembersService;
+import org.elsysbg.ip.todo.services.TasksService;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -20,9 +20,9 @@ public class TodoListServletContextListener extends GuiceServletContextListener 
 			injector = Guice.createInjector(new ServletModule() {
 				@Override
 				protected void configureServlets() {
-					bind(TaskService.class);
+					bind(TasksService.class);
 					bind(EntityManagerService.class);
-					bind(MemberService.class);
+					bind(MembersService.class);
 					bind(AuthenticationService.class);
 				}
 			});

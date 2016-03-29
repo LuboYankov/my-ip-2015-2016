@@ -6,6 +6,7 @@
 	<persistence-unit name="todolist-jpa">
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		<class>org.elsysbg.ip.todo.entities.Task</class>
+		<class>org.elsysbg.ip.todo.entities.Member</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
@@ -14,7 +15,7 @@
 			<property name="javax.persistence.jdbc.user" value="todolistuser"/>
 			<property name="javax.persistence.jdbc.password" value="todolistpassword"/>
 		
-			<property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO" />
+			<property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=TRACE" />
   			<property name="openjpa.jdbc.SynchronizeMappings"
 				value="buildSchema(foreignKeys=true,schemaAction='refresh')" />
 				
@@ -27,3 +28,4 @@
 		</properties>
 	</persistence-unit>
 </persistence>
+

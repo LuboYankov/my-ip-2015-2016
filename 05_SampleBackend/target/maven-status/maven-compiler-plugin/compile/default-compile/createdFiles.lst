@@ -1,6 +1,13 @@
 org/elsysbg/ip/todo/TodoListServletContextListener.class
-org/elsysbg/ip/todo/rest/TasksRest.class
 org/elsysbg/ip/todo/entities/Task.class
-org/elsysbg/ip/todo/services/TaskService.class
+org/elsysbg/ip/todo/rest/AuthenticationRest.class
+org/elsysbg/ip/todo/services/AuthenticationService.class
+org/elsysbg/ip/todo/rest/TasksRest.class
+org/elsysbg/ip/todo/services/TasksService.class
+org/elsysbg/ip/todo/services/MembersService.class
+org/elsysbg/ip/todo/entities/Member.class
+org/elsysbg/ip/todo/rest/MembersRest.class
 org/elsysbg/ip/todo/TodoListServletContextListener$1.class
+org/elsysbg/ip/todo/TodoListDataSource.class
+org/elsysbg/ip/todo/services/EntityManagerService.class
 org/elsysbg/ip/todo/TodoListApplication.class
